@@ -6,9 +6,9 @@
 	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 
 	// 2. records per page ($per_page)
-	$per_page = 1;
+	$per_page = 4;
 	// 3. Total record count ($total_count)
-	$total_count = Photograph::count_all();
+	$total_count = count(Photograph::getAllData());
 
 	// find all photos
 	// use pagination instead
@@ -22,6 +22,13 @@
 
 	// Need to add ?page=$page to all links we want to
 	// maintain the current page (or store $page in $session)
+
+	if (isset($_GET['page'])) {
+		$page_no = $_GET['page'];
+	}
+	else{
+		$page_no = "";
+	}
 
 ?>
 	<main>
@@ -46,8 +53,12 @@
 						if ($pagination->total_pages() >= 1) {
 							if ($pagination->has_previous_page()) {
 								
-							}
+							
 							echo '<li class="waves-effect"><a href="index.php?page='.$pagination->previous_page().'"><i class="material-icons">chevron_left</i></a></li>';
+							}
+							else{
+								echo '<li class="disabled"><a href="index.php?page='.$page_no.'"><i class="material-icons">chevron_left</i></a></li>';
+							}
 							for($i=1; $i <= $pagination->total_pages(); $i++){
 								if ($i == $page) {
 									echo '<li class="active"><a href="index.php?page='.$i.'">'.$i.'</a></li>';
@@ -57,21 +68,17 @@
 								}
 								
 							}
+							if ($pagination->has_next_page()) {	
 							echo '<li class="waves-effect"><a href="index.php?page='.$pagination->next_page().'"><i class="material-icons">chevron_right</i></a></li>';
-							if ($pagination->has_next_page()) {
-								
+							}
+							else{
+								echo '<li class="disabled"><a href="index.php?page='.$page_no.'"><i class="material-icons">chevron_right</i></a></li>';
 							}
 						}
 						else{
-							echo "string";
+							echo "Error";
 						}
 					?>
-					    
-					    <!-- <li class="active"><a href="#!">1</a></li>
-					    <li class="waves-effect"><a href="#!">2</a></li>
-					    <li class="waves-effect"><a href="#!">3</a></li>
-					    <li class="waves-effect"><a href="#!">4</a></li>
-					    <li class="waves-effect"><a href="#!">5</a></li> -->
 					</ul>
 				</div>
 			</div>
