@@ -1,6 +1,6 @@
 # Photo Gallery App  using PHP
 
-Photo Gallery App was written in PHP using Object-Oriented Programming Style
+Photo Gallery App is written in PHP using Object-Oriented Programming Style
 
 # Features
 
